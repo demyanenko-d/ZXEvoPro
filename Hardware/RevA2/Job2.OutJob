@@ -17,11 +17,11 @@ RevisionNamingSchemeGUID=
 [OutputGroup1]
 Name=Job2.OutJob
 Description=
-TargetOutputMedium=PDF
+TargetOutputMedium=Folder Structure
 VariantName=[No Variations]
 VariantScope=1
 CurrentConfigurationName=
-TargetPrinter=Virtual Printer
+TargetPrinter=Microsoft Print to PDF
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=0
 OutputMedium1=Print Job
 OutputMedium1_Type=Printer
@@ -55,7 +55,7 @@ OutputName2=Schematic Prints
 OutputCategory2=Documentation
 OutputDocumentPath2=
 OutputVariantName2=
-OutputEnabled2=1
+OutputEnabled2=0
 OutputEnabled2_OutputMedium1=0
 OutputEnabled2_OutputMedium2=3
 OutputEnabled2_OutputMedium3=0
@@ -81,21 +81,21 @@ PageOptions3=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|PrintS
 Configuration3_Name1=ColumnNameFormat
 Configuration3_Item1=CaptionAsName
 Configuration3_Name2=General
-Configuration3_Item2=OpenExported=False|AddToProject=False|ReportBOMViolationsInMessages=False|ForceFit=False|NotFitted=False|Database=False|DatabasePriority=False|IncludePcbData=False|IncludeVaultData=False|IncludeCloudData=False|IncludeDocumentData=True|IncludeAlternatives=False|ShowExportOptions=True|TemplateFilename=|TemplateVaultGuid=|TemplateItemGuid=|TemplateRevisionGuid=|BatchMode=5|FormWidth=1663|FormHeight=988|SupplierProdQty=1|SupplierAutoQty=False|SupplierUseCachedPricing=False|SupplierCurrency=USD|SolutionsPerItem=1|SuppliersPerSolution=1|ViewType=0|UseDirectApi=False|BomSetName=
+Configuration3_Item2=OpenExported=False|AddToProject=False|ReportBOMViolationsInMessages=False|ForceFit=False|NotFitted=False|Database=False|DatabasePriority=False|IncludePcbData=False|IncludeVaultData=False|IncludeCloudData=False|IncludeDocumentData=True|IncludeAlternatives=False|ShowExportOptions=True|TemplateFilename=|TemplateVaultGuid=|TemplateItemGuid=|TemplateRevisionGuid=|BatchMode=5|FormWidth=1554|FormHeight=882|SupplierProdQty=1|SupplierAutoQty=False|SupplierUseCachedPricing=False|SupplierCurrency=USD|SolutionsPerItem=1|SuppliersPerSolution=1|ViewType=1|UseDirectApi=False|BomSetName=
 Configuration3_Name3=GroupOrder
-Configuration3_Item3=Comment=True|Footprint=True
+Configuration3_Item3=Comment=True|Footprint=True|Category=True
 Configuration3_Name4=SortOrder
-Configuration3_Item4=Value=Up
+Configuration3_Item4=Category=Up
 Configuration3_Name5=VisibleOrder
-Configuration3_Item5=Description=312|Designator=120|Quantity=120|Capacitance=100|Resistance=100|Value=152|Footprint=100|Case/Package=100|Case\/Package=100|Package / Case=100
+Configuration3_Item5=Category=147|Designator=120|Value=152|Case/Package=100|Quantity=120|Description=372
 Configuration3_Name6=VisibleOrder_Flat
-Configuration3_Item6=Description=312|Designator=120|Quantity=120|Capacitance=100|Resistance=100|Value=152|Footprint=100|Case/Package=100|Case\/Package=100|Package / Case=100
+Configuration3_Item6=Category=147|Designator=120|Value=152|Case/Package=100|Quantity=120|Description=372
 OutputType4=Gerber
 OutputName4=Gerber Files
 OutputCategory4=Fabrication
 OutputDocumentPath4=RevA2.PcbDoc
 OutputVariantName4=
-OutputEnabled4=0
+OutputEnabled4=1
 OutputEnabled4_OutputMedium1=0
 OutputEnabled4_OutputMedium2=0
 OutputEnabled4_OutputMedium3=2
@@ -109,7 +109,7 @@ OutputName5=NC Drill Files
 OutputCategory5=Fabrication
 OutputDocumentPath5=RevA2.PcbDoc
 OutputVariantName5=
-OutputEnabled5=0
+OutputEnabled5=1
 OutputEnabled5_OutputMedium1=0
 OutputEnabled5_OutputMedium2=0
 OutputEnabled5_OutputMedium3=3
@@ -147,7 +147,7 @@ ShowComponentParameters2=1
 GlobalBookmarks2=0
 PDFACompliance2=Disabled
 PDFVersion2=Default
-OutputFilePath3=D:\ProjectWork\PCB\ZXEvoPro\Hardware\RevA2\Output\Folder Structure\
+OutputFilePath3=D:\ProjectWork\PCB\ZXEvoPro\Hardware\RevA2\Output\
 ReleaseManaged3=0
 OutputBasePath3=Output\
 OutputPathMedia3=
@@ -214,7 +214,7 @@ OpenOutput5=1
 [GeneratedFilesSettings]
 RelativeOutputPath2=D:\ProjectWork\PCB\ZXEvoPro\Hardware\RevA2\Output\Job2.PDF
 OpenOutputs2=1
-RelativeOutputPath3=D:\ProjectWork\PCB\ZXEvoPro\Hardware\RevA2\Output\Folder Structure\
+RelativeOutputPath3=D:\ProjectWork\PCB\ZXEvoPro\Hardware\RevA2\Output\
 OpenOutputs3=1
 AddToProject3=1
 TimestampFolder3=0
