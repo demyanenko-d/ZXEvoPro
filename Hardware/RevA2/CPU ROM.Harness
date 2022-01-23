@@ -1,0 +1,1 @@
+Z80BUS=CLK,A[0..15],D[0..7],M\R\E\Q\,I\O\R\Q\,W\R\,R\D\,M\1\,R\F\S\H\,W\A\I\T\,I\N\T\,N\M\I\,H\A\L\T\,B\U\S\R\Q\,B\U\S\A\C\K\
