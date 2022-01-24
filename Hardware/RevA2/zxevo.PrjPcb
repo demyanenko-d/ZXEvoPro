@@ -533,65 +533,39 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=TILZPONQ
 
-[GeneratedDocument1]
-DocumentPath=Output\BOM\Bill of Materials-zxevo.xlsx
+[Document30]
+DocumentPath=zxevo.BomDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
 DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
 
-[GeneratedDocument2]
-DocumentPath=Output\NC Drill\RevA2-RoundHoles.TXT
+[Document31]
+DocumentPath=RevA2.PCBDwf
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
 DItemRevisionGUID=
-
-[GeneratedDocument3]
-DocumentPath=Output\NC Drill\RevA2-SlotHoles.TXT
-DItemRevisionGUID=
-
-[GeneratedDocument4]
-DocumentPath=Output\NC Drill\RevA2.DRR
-DItemRevisionGUID=
-
-[GeneratedDocument5]
-DocumentPath=Output\Gerber\RevA2.EXTREP
-DItemRevisionGUID=
-
-[GeneratedDocument6]
-DocumentPath=Output\Gerber\RevA2.GBL
-DItemRevisionGUID=
-
-[GeneratedDocument7]
-DocumentPath=Output\Gerber\RevA2.GBO
-DItemRevisionGUID=
-
-[GeneratedDocument8]
-DocumentPath=Output\Gerber\RevA2.GBS
-DItemRevisionGUID=
-
-[GeneratedDocument9]
-DocumentPath=Output\Gerber\RevA2.GM1
-DItemRevisionGUID=
-
-[GeneratedDocument10]
-DocumentPath=Output\Gerber\RevA2.GTL
-DItemRevisionGUID=
-
-[GeneratedDocument11]
-DocumentPath=Output\Gerber\RevA2.GTO
-DItemRevisionGUID=
-
-[GeneratedDocument12]
-DocumentPath=Output\Gerber\RevA2.GTS
-DItemRevisionGUID=
-
-[GeneratedDocument13]
-DocumentPath=Output\NC Drill\RevA2.LDP
-DItemRevisionGUID=
-
-[GeneratedDocument14]
-DocumentPath=Output\Gerber\RevA2.REP
-DItemRevisionGUID=
-
-[GeneratedDocument15]
-DocumentPath=Output\Gerber\RevA2.RUL
-DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
 
 [Configuration1]
 Name=Sources
