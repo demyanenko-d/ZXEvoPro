@@ -5,4 +5,5 @@ Hardware/**/__Previews
 Hardware/**/*.drc
 Hardware/**/*.html
 Hardware/**/*.WAS
-Hardware/**/Output
+Hardware/**/Output/*
+!Hardware/**/Output/*.pdf
