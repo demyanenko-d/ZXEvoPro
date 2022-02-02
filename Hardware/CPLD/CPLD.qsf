@@ -1,0 +1,125 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 2020  Intel Corporation. All rights reserved.
+# Your use of Intel Corporation's design tools, logic functions 
+# and other software and tools, and any partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Intel Program License 
+# Subscription Agreement, the Intel Quartus Prime License Agreement,
+# the Intel FPGA IP License Agreement, or other applicable license
+# agreement, including, without limitation, that your use is for
+# the sole purpose of programming logic devices manufactured by
+# Intel and sold by Intel or its authorized distributors.  Please
+# refer to the applicable agreement for further details, at
+# https://fpgasoftware.intel.com/eula.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus Prime
+# Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+# Date created = 00:12:45  February 03, 2022
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		CPLD_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus Prime software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "MAX II"
+set_global_assignment -name DEVICE EPM240T100C5
+set_global_assignment -name TOP_LEVEL_ENTITY CPLD
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.0
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "00:12:45  FEBRUARY 03, 2022"
+set_global_assignment -name LAST_QUARTUS_VERSION "20.1.0 Lite Edition"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name DEVICE_FILTER_PACKAGE "ANY QFP"
+set_global_assignment -name DEVICE_FILTER_PIN_COUNT 100
+set_global_assignment -name DEVICE_FILTER_SPEED_GRADE 5
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR "-1"
+set_global_assignment -name POWER_EXT_SUPPLY_VOLTAGE_TO_REGULATOR 3.3V
+set_global_assignment -name SYSTEMVERILOG_FILE CPLD.sv
+set_location_assignment PIN_83 -to arm.miso
+set_location_assignment PIN_82 -to arm.sclk
+set_location_assignment PIN_81 -to arm.mosi
+set_location_assignment PIN_78 -to arm.ssel
+set_location_assignment PIN_73 -to cpld_ssel_i
+set_location_assignment PIN_74 -to fpga_sel_i[0]
+set_location_assignment PIN_75 -to fpga_sel_i[1]
+set_location_assignment PIN_14 -to dac_b_o[7]
+set_location_assignment PIN_15 -to dac_b_o[6]
+set_location_assignment PIN_16 -to dac_b_o[5]
+set_location_assignment PIN_17 -to dac_b_o[4]
+set_location_assignment PIN_18 -to dac_b_o[3]
+set_location_assignment PIN_19 -to dac_b_o[2]
+set_location_assignment PIN_20 -to dac_b_o[1]
+set_location_assignment PIN_21 -to dac_b_o[0]
+set_location_assignment PIN_12 -to dac_clk_i
+set_location_assignment PIN_26 -to dac_g_o[7]
+set_location_assignment PIN_27 -to dac_g_o[6]
+set_location_assignment PIN_28 -to dac_g_o[5]
+set_location_assignment PIN_29 -to dac_g_o[4]
+set_location_assignment PIN_30 -to dac_g_o[3]
+set_location_assignment PIN_33 -to dac_g_o[2]
+set_location_assignment PIN_34 -to dac_g_o[1]
+set_location_assignment PIN_35 -to dac_g_o[0]
+set_location_assignment PIN_36 -to dac_r_o[7]
+set_location_assignment PIN_37 -to dac_r_o[6]
+set_location_assignment PIN_38 -to dac_r_o[5]
+set_location_assignment PIN_39 -to dac_r_o[4]
+set_location_assignment PIN_40 -to dac_r_o[3]
+set_location_assignment PIN_41 -to dac_r_o[2]
+set_location_assignment PIN_42 -to dac_r_o[1]
+set_location_assignment PIN_43 -to dac_r_o[0]
+set_location_assignment PIN_84 -to eps32.mosi
+set_location_assignment PIN_86 -to eps32.miso
+set_location_assignment PIN_85 -to eps32.sclk
+set_location_assignment PIN_87 -to eps32.ssel
+set_location_assignment PIN_44 -to fpga_master.ssel
+set_location_assignment PIN_49 -to fpga_master.sclk
+set_location_assignment PIN_48 -to fpga_master.miso
+set_location_assignment PIN_47 -to fpga_master.mosi
+set_location_assignment PIN_5 -to fpga_slave.ssel
+set_location_assignment PIN_6 -to fpga_slave.sclk
+set_location_assignment PIN_7 -to fpga_slave.mosi
+set_location_assignment PIN_8 -to fpga_slave.miso
+set_location_assignment PIN_4 -to n_softrst_i
+set_location_assignment PIN_51 -to hsync_i
+set_location_assignment PIN_50 -to vsync_i
+set_location_assignment PIN_97 -to sd0.miso
+set_location_assignment PIN_96 -to sd0.sclk
+set_location_assignment PIN_95 -to sd0.mosi
+set_location_assignment PIN_92 -to sd0.ssel
+set_location_assignment PIN_91 -to sd1.miso
+set_location_assignment PIN_89 -to sd1.mosi
+set_location_assignment PIN_90 -to sd1.sclk
+set_location_assignment PIN_88 -to sd1.ssel
+set_location_assignment PIN_53 -to vdat_i[15]
+set_location_assignment PIN_55 -to vdat_i[14]
+set_location_assignment PIN_57 -to vdat_i[13]
+set_location_assignment PIN_61 -to vdat_i[12]
+set_location_assignment PIN_66 -to vdat_i[11]
+set_location_assignment PIN_68 -to vdat_i[10]
+set_location_assignment PIN_70 -to vdat_i[9]
+set_location_assignment PIN_72 -to vdat_i[8]
+set_location_assignment PIN_71 -to vdat_i[7]
+set_location_assignment PIN_69 -to vdat_i[6]
+set_location_assignment PIN_67 -to vdat_i[5]
+set_location_assignment PIN_64 -to vdat_i[4]
+set_location_assignment PIN_58 -to vdat_i[3]
+set_location_assignment PIN_56 -to vdat_i[2]
+set_location_assignment PIN_54 -to vdat_i[1]
+set_location_assignment PIN_52 -to vdat_i[0]

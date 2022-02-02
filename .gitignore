@@ -7,3 +7,8 @@ Hardware/**/*.html
 Hardware/**/*.WAS
 Hardware/**/Output/*
 !Hardware/**/Output/*.pdf
+
+Hardware/CPLD/**/db
+Hardware/CPLD/**/output_files
+Hardware/CPLD/**/incremental_db
+Hardware/CPLD/**/*.bak
