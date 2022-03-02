@@ -31,3 +31,6 @@ TestService/FPGA/**/*.bin
 TestService/FPGA/**/*.pof
 TestService/FPGA/**/*.sof
 TestService/FPGA/**/*.rbf
+
+Firmware/ESP32-S3/build
+Firmware/ESP32-S3/build/*.old
