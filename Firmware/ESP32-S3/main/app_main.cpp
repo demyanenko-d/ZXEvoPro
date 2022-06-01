@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <math.h>
+#include "config.h"
 #include "esp_log.h"
 #include "esp_err.h"
 #include "freertos/FreeRTOS.h"
@@ -9,11 +10,14 @@
 #include "driver/spi_slave_hd.h"
 #include "driver/i2c.h"
 #include "driver/gpio.h"
+#include "driver/spi_master.h"
 #include "soc/rtc_cntl_reg.h"
-#include "i2c.h"
+#include "drivers/hal.h"
 
 #include "drivers\Si5351A-RevB-Registers.h"
 //#include "drivers\si5351.h"
+
+#define CFG_SPI SPI2_HOST
 
 void esp_pass_fail(const char* msg, esp_err_t err) {
   printf(msg);
@@ -82,10 +86,58 @@ void configSi5351A() {
   printf("si5351a init done\n\r");
 }
 
+void spi_init()
+{
+    esp_err_t ret;
+    spi_device_handle_t spi;
+
+    spi_bus_config_t buscfg={
+        .mosi_io_num = DATA0_IO,
+        .miso_io_num = -1,
+        .sclk_io_num = DCLK_IO,
+        .quadwp_io_num = -1,
+        .quadhd_io_num = -1,
+        .max_transfer_sz = 32,
+    };
+
+    spi_device_interface_config_t dev_config = {
+      .command_bits = 0,
+      .address_bits = 0,
+      .dummy_bits = 0,
+      .mode = 0,
+      .clock_speed_hz = 4*1000*1000,
+      .spics_io_num = -1,
+      .queue_size = 1
+    };
+
+    ret = spi_bus_initialize(CFG_SPI, &buscfg, SPI_DMA_DISABLED);
+    ESP_ERROR_CHECK(ret);
+
+    ret = spi_bus_add_device(CFG_SPI, &dev_config, &spi);
+    ESP_ERROR_CHECK(ret);
+
+    uint8_t txbuf[4] = {2,3,4,6};
+ 
+    spi_transaction_t transact = {
+      .length = 32,
+      .tx_buffer = &txbuf,
+    };
+    
+    int cnt = 20;
+
+    while(cnt-- > 0) { 
+      spi_device_transmit(spi, &transact);
+      vTaskDelay(10 / portTICK_RATE_MS);
+    }
+
+    
+}
+
 extern "C" void app_main()
 {
   printf("ZX-Revo v.0.0\n\r");
   
   init_i2c();
   configSi5351A();
+  spi_init();
 }

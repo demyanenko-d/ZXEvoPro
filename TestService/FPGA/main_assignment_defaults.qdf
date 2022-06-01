@@ -56,29 +56,6 @@ set_global_assignment -name IGNORE_CLOCK_SETTINGS Off
 set_global_assignment -name ANALYZE_LATCHES_AS_SYNCHRONOUS_ELEMENTS On
 set_global_assignment -name ENABLE_RECOVERY_REMOVAL_ANALYSIS Off
 set_global_assignment -name ENABLE_CLOCK_LATENCY Off
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER Off -family MAX7000B
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER Off -family "HardCopy II"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER On -family "Cyclone IV E"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER On -family "Stratix IV"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER On -family "Cyclone III"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER Off -family "HardCopy Stratix"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER Off -family MAX7000AE
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER Off -family Cyclone
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER Off -family "Stratix II GX"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER Off -family "MAX II"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER On -family "Arria II GX"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER Off -family "Stratix GX"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER On -family "HardCopy III"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER Off -family MAX7000S
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER Off -family "Cyclone II"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER On -family "Cyclone IV GX"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER On -family "HardCopy IV"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER On -family "Cyclone III LS"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER On -family "Stratix III"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER On -family "Arria GX"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER Off -family MAX3000A
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER Off -family "Stratix II"
-set_global_assignment -name USE_TIMEQUEST_TIMING_ANALYZER Off -family Stratix
 set_global_assignment -name NUMBER_OF_SOURCES_PER_DESTINATION_TO_REPORT 10
 set_global_assignment -name NUMBER_OF_DESTINATION_TO_REPORT 10
 set_global_assignment -name NUMBER_OF_PATHS_TO_REPORT 200
@@ -86,77 +63,6 @@ set_global_assignment -name DO_MIN_ANALYSIS Off
 set_global_assignment -name DO_MIN_TIMING Off
 set_global_assignment -name REPORT_IO_PATHS_SEPARATELY Off
 set_global_assignment -name FLOW_ENABLE_TIMING_CONSTRAINT_CHECK Off
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS Off -family MAX7000B
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS On -family "HardCopy II"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS On -family "Cyclone IV E"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS On -family "Stratix IV"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS On -family "Cyclone III"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS Off -family "HardCopy Stratix"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS Off -family MAX7000AE
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS Off -family Cyclone
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS On -family "Stratix II GX"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS Off -family "MAX II"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS On -family "Arria II GX"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS Off -family "Stratix GX"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS On -family "HardCopy III"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS Off -family MAX7000S
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS On -family "Cyclone II"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS On -family "Cyclone IV GX"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS On -family "HardCopy IV"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS On -family "Cyclone III LS"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS On -family "Stratix III"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS On -family "Arria GX"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS Off -family MAX3000A
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS On -family "Stratix II"
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS Off -family Stratix
-set_global_assignment -name TIMEQUEST_DO_REPORT_TIMING Off
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS On -family MAX7000B
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS Off -family "HardCopy II"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS Off -family "Stratix IV"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS On -family "Cyclone IV E"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS On -family "Cyclone III"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS Off -family "HardCopy Stratix"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS On -family MAX7000AE
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS Off -family "Stratix II GX"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS On -family Cyclone
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS On -family "MAX II"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS Off -family "Arria II GX"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS Off -family "Stratix GX"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS On -family MAX7000S
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS Off -family "HardCopy III"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS On -family "Cyclone II"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS On -family "Cyclone IV GX"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS Off -family "HardCopy IV"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS On -family "Cyclone III LS"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS Off -family "Stratix III"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS Off -family "Arria GX"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS On -family MAX3000A
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS Off -family "Stratix II"
-set_global_assignment -name TIMEQUEST_REPORT_WORST_CASE_TIMING_PATHS Off -family Stratix
-set_global_assignment -name TIMEQUEST_REPORT_NUM_WORST_CASE_TIMING_PATHS 100
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL Off -family MAX7000B
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL Off -family "HardCopy II"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL On -family "Cyclone IV E"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL On -family "Stratix IV"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL On -family "Cyclone III"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL Off -family "HardCopy Stratix"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL Off -family MAX7000AE
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL Off -family Cyclone
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL Off -family "Stratix II GX"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL Off -family "MAX II"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL On -family "Arria II GX"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL Off -family "Stratix GX"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL On -family "HardCopy III"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL Off -family MAX7000S
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL Off -family "Cyclone II"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL On -family "Cyclone IV GX"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL On -family "HardCopy IV"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL On -family "Cyclone III LS"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL On -family "Stratix III"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL Off -family "Arria GX"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL Off -family MAX3000A
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL Off -family "Stratix II"
-set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL Off -family Stratix
 set_global_assignment -name MUX_RESTRUCTURE Auto
 set_global_assignment -name ENABLE_IP_DEBUG Off
 set_global_assignment -name SAVE_DISK_SPACE On

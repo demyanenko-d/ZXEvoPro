@@ -8,5 +8,5 @@
         "unity_config.h": "c",
         "xutility": "c"
     },
-    "idf.portWin": "COM4"
+    "idf.portWin": "COM5"
 }

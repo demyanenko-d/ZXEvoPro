@@ -1,2 +1,1 @@
-idf_component_register(SRCS "app_main.cpp" "i2c.c"
-                    INCLUDE_DIRS ".")
+idf_component_register(SRCS "drivers/hal.cpp" "app_main.cpp" INCLUDE_DIRS ".")

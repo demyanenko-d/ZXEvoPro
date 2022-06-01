@@ -71,7 +71,6 @@ set_location_assignment PIN_57 -to vg_rclk
 set_location_assignment PIN_58 -to vg_rawr
 set_location_assignment PIN_60 -to vg_tr43
 set_location_assignment PIN_61 -to vg_wd
-set_location_assignment PIN_62 -to vg_wf_de
 set_location_assignment PIN_63 -to vg_drq
 set_location_assignment PIN_64 -to vg_irq
 set_location_assignment PIN_65 -to vg_side
@@ -79,49 +78,14 @@ set_location_assignment PIN_67 -to vg_wrd
 set_location_assignment PIN_68 -to rdat_b_n
 set_location_assignment PIN_69 -to vg_a[0]
 set_location_assignment PIN_70 -to vg_a[1]
-set_location_assignment PIN_71 -to ide_d[8]
-set_location_assignment PIN_73 -to ide_d[7]
-set_location_assignment PIN_74 -to ide_d[9]
-set_location_assignment PIN_75 -to ide_d[6]
 set_location_assignment PIN_78 -to iorqge1
 set_location_assignment PIN_79 -to clkz_in
 set_location_assignment PIN_80 -to iorqge2
-set_location_assignment PIN_83 -to ide_d[10]
-set_location_assignment PIN_85 -to ide_d[5]
-set_location_assignment PIN_86 -to ide_d[11]
-set_location_assignment PIN_87 -to ide_d[4]
-set_location_assignment PIN_88 -to ide_d[12]
-set_location_assignment PIN_89 -to ide_d[3]
-set_location_assignment PIN_92 -to ide_d[2]
-set_location_assignment PIN_93 -to ide_d[14]
-set_location_assignment PIN_94 -to ide_d[1]
-set_location_assignment PIN_95 -to ide_d[15]
-set_location_assignment PIN_96 -to ide_d[0]
-set_location_assignment PIN_97 -to ide_dir
-set_location_assignment PIN_99 -to ide_rdy
-set_location_assignment PIN_100 -to ide_wr_n
-set_location_assignment PIN_101 -to ide_rd_n
-set_location_assignment PIN_102 -to ide_rs_n
-set_location_assignment PIN_103 -to ide_a[1]
-set_location_assignment PIN_104 -to ide_a[0]
-set_location_assignment PIN_111 -to ide_a[2]
-set_location_assignment PIN_112 -to ide_cs1_n
-set_location_assignment PIN_113 -to ide_cs0_n
 set_location_assignment PIN_114 -to sdclk
 set_location_assignment PIN_115 -to sddi
 set_location_assignment PIN_116 -to sddo
 set_location_assignment PIN_119 -to sdcs_n
-set_location_assignment PIN_120 -to vvsync
-set_location_assignment PIN_121 -to vhsync
-set_location_assignment PIN_122 -to vcsync
-set_location_assignment PIN_125 -to vblu[0]
-set_location_assignment PIN_126 -to vblu[1]
-set_location_assignment PIN_127 -to vgrn[0]
-set_location_assignment PIN_128 -to vgrn[1]
-set_location_assignment PIN_131 -to vred[0]
-set_location_assignment PIN_132 -to vred[1]
 set_location_assignment PIN_133 -to beep
-set_location_assignment PIN_134 -to ay_clk
 set_location_assignment PIN_135 -to ay_bdir
 set_location_assignment PIN_136 -to ay_bc1
 set_location_assignment PIN_139 -to clkz_out
@@ -178,7 +142,6 @@ set_location_assignment PIN_205 -to rd[14]
 set_location_assignment PIN_206 -to rd[1]
 set_location_assignment PIN_207 -to rd[15]
 set_location_assignment PIN_208 -to rd[0]
-set_location_assignment PIN_90 -to ide_d[13]
 set_instance_assignment -name CLOCK_SETTINGS "FPGA clock" -to fclk
 set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to clkz_out
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to rras0_n
@@ -206,7 +169,6 @@ set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
 set_global_assignment -name FINAL_PLACEMENT_OPTIMIZATION ALWAYS
 set_global_assignment -name FITTER_AGGRESSIVE_ROUTABILITY_OPTIMIZATION ALWAYS
 set_global_assignment -name SMART_RECOMPILE OFF
-set_global_assignment -name RESERVE_ALL_UNUSED_PINS_NO_OUTPUT_GND "AS INPUT TRI-STATED"
 set_global_assignment -name EDA_SIMULATION_TOOL "<None>"
 set_global_assignment -name ROUTER_TIMING_OPTIMIZATION_LEVEL MAXIMUM
 set_global_assignment -name PLACEMENT_EFFORT_MULTIPLIER 4.0
@@ -225,3 +187,50 @@ set_global_assignment -name VERILOG_FILE test_dram/dram.v
 set_global_assignment -name VERILOG_FILE test_dram/dram_control.v
 set_global_assignment -name VERILOG_FILE test_dram/rnd_vec_gen.v
 set_global_assignment -name VERILOG_FILE test_dram/mem_tester.v
+set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_timing_analysis
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT NONE -section_id eda_timing_analysis
+set_global_assignment -name EDA_TIMING_ANALYSIS_TOOL "<None>"
+set_global_assignment -name DO_MIN_ANALYSIS OFF
+set_global_assignment -name FMAX_REQUIREMENT "28 MHz"
+set_global_assignment -name SIMULATION_MODE FUNCTIONAL
+set_global_assignment -name SIMULATION_COVERAGE OFF
+set_global_assignment -name VERILOG_INPUT_VERSION SYSTEMVERILOG_2005
+set_global_assignment -name MISC_FILE "D:/ProjectWork/PCB/ZXEvoPro/TestService/FPGA/main.dpf"
+set_location_assignment PIN_97 -to fpga_sel[0]
+set_location_assignment PIN_99 -to fpga_sel[1]
+set_location_assignment PIN_103 -to vdac_clk
+set_location_assignment PIN_95 -to vdac_data[15]
+set_location_assignment PIN_93 -to vdac_data[14]
+set_location_assignment PIN_90 -to vdac_data[13]
+set_location_assignment PIN_88 -to vdac_data[12]
+set_location_assignment PIN_86 -to vdac_data[11]
+set_location_assignment PIN_83 -to vdac_data[10]
+set_location_assignment PIN_74 -to vdac_data[9]
+set_location_assignment PIN_71 -to vdac_data[8]
+set_location_assignment PIN_73 -to vdac_data[7]
+set_location_assignment PIN_75 -to vdac_data[6]
+set_location_assignment PIN_85 -to vdac_data[5]
+set_location_assignment PIN_87 -to vdac_data[4]
+set_location_assignment PIN_89 -to vdac_data[3]
+set_location_assignment PIN_92 -to vdac_data[2]
+set_location_assignment PIN_94 -to vdac_data[1]
+set_location_assignment PIN_96 -to vdac_data[0]
+set_location_assignment PIN_111 -to vdac_hsync
+set_location_assignment PIN_112 -to vdac_vsync
+set_location_assignment PIN_113 -to wrdac
+set_location_assignment PIN_132 -to gpio[0]
+set_location_assignment PIN_131 -to gpio[1]
+set_location_assignment PIN_128 -to gpio[2]
+set_location_assignment PIN_127 -to gpio[3]
+set_location_assignment PIN_126 -to gpio[4]
+set_location_assignment PIN_125 -to gpio[5]
+set_location_assignment PIN_122 -to gpio[6]
+set_location_assignment PIN_121 -to gpio[7]
+set_location_assignment PIN_120 -to gpio[8]
+set_location_assignment PIN_134 -to gpio[9]
+set_location_assignment PIN_100 -to gpio[10]
+set_location_assignment PIN_102 -to gpio[11]
+set_location_assignment PIN_101 -to gpio[12]
+set_location_assignment PIN_104 -to gpio[13]
+set_global_assignment -name USE_CONFIGURATION_DEVICE ON
+set_global_assignment -name GENERATE_TTF_FILE ON

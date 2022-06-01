@@ -1,116 +1,101 @@
 module main(
-
  // clocks
- input fclk,
- output clkz_out,
- input clkz_in,
+ input			fclk,
+ output			clkz_out,
+ input			clkz_in,
 
  // z80
- input iorq_n,
- input mreq_n,
- input rd_n,
- input wr_n,
- input m1_n,
- input rfsh_n,
- input int_n,
- input nmi_n,
- input wait_n,
- output res,
+ input			iorq_n,
+ input			mreq_n,
+ input			rd_n,
+ input			wr_n,
+ input			m1_n,
+ input			rfsh_n,
+ input			int_n,
+ input			nmi_n,
+ input			wait_n,
+ output			res,
 
- inout [7:0] d,
- output [15:0] a,
+ inout	[7:0]	d,
+ output	[15:0]	a,
 
  // zxbus and related
- output csrom,
- output romoe_n,
- output romwe_n,
+ output			csrom,
+ output			romoe_n,
+ output			romwe_n,
 
- output rompg0_n,
- output dos_n, // aka rompg1
- output rompg2,
- output rompg3,
- output rompg4,
+ output			rompg0_n,
+ output			dos_n, // aka rompg1
+ output			rompg2,
+ output			rompg3,
+ output			rompg4,
 
- input iorqge1,
- input iorqge2,
- output iorq1_n,
- output iorq2_n,
+ input			iorqge1,
+ input			iorqge2,
+ output			iorq1_n,
+ output			iorq2_n,
 
  // DRAM
- inout [15:0] rd,
- output [9:0] ra,
- output rwe_n,
- output rucas_n,
- output rlcas_n,
- output rras0_n,
- output rras1_n,
-
- // video
- output [1:0] vred,
- output [1:0] vgrn,
- output [1:0] vblu,
-
- output vhsync,
- output vvsync,
- output vcsync,
+ inout	[15:0]	rd,
+ output	[9:0]	ra,
+ output			rwe_n,
+ output			rucas_n,
+ output			rlcas_n,
+ output			rras0_n,
+ output			rras1_n,
 
  // AY control and audio/tape
- input ay_clk,
- output ay_bdir,
- output ay_bc1,
+ output			ay_bdir,
+ output			ay_bc1,
 
- output reg beep,
+ output reg		beep,
+ output	reg		wrdac,
 
- // IDE
- input [2:0] ide_a,
- input [15:0] ide_d,
-
- output ide_dir,
-
- input ide_rdy,
-
- output ide_cs0_n,
- output ide_cs1_n,
- output ide_rs_n,
- output ide_rd_n,
- output ide_wr_n,
+ // vdac
+ output	[15:0]	vdac_data,
+ output			vdac_clk,
+ output			vdac_hsync,
+ output			vdac_vsync,
 
  // VG93 and diskdrive
- output reg vg_clk,
+ output reg		vg_clk,
 
- output vg_cs_n,
- output vg_res_n,
+ output			vg_cs_n,
+ output			vg_res_n,
 
- input vg_hrdy,
- input vg_rclk,
- input vg_rawr,
- input [1:0] vg_a, // disk drive selection
- input vg_wrd,
- input vg_side,
+ input			vg_hrdy,
+ input			vg_rclk,
+ input			vg_rawr,
+ input			[1:0] vg_a, // disk drive selection
+ input			vg_wrd,
+ input			vg_side,
 
- input step,
- input vg_sl,
- input vg_sr,
- input vg_tr43,
- input rdat_b_n,
- input vg_wf_de,
- input vg_drq,
- input vg_irq,
- input vg_wd,
+ input			step,
+ input			vg_sl,
+ input			vg_sr,
+ input			vg_tr43,
+ input			rdat_b_n,
+ input			vg_drq,
+ input			vg_irq,
+ input			vg_wd,
 
  // serial links (atmega-fpga, sdcard)
- output sdcs_n,
- output sddo,
- output sdclk,
- input sddi,
+ output	[1:0]	fpga_sel,
+ output			sdcs_n,
+ output			sddo,
+ output			sdclk,
+ input			sddi,
 
- input spics_n,
- input spick,
- input spido,
- output spidi,
- output reg spiint_n
+ input			spics_n,
+ input			spick,
+ input			spido,
+ output			spidi,
+ output	reg		spiint_n,
+ 
+ output	[13:0]	gpio
+);	
 
-);
+assign 	vdac_clk = fclk;
 
 //--Dummy----------------------------------------------------------------------
 
@@ -767,10 +752,13 @@ module main(
 
  assign image_color = (mouse_mask) ? BLACK : ( pixel ? fcolor : bcolor ) ;
 
- assign { vgrn[1:0], vred[1:0], vblu[1:0] } = color;
- assign vhsync = hsync;
- assign vvsync = vsync;
- assign vcsync = ~csync;
+ assign { vdac_data[9:8], vdac_data[4:3], vdac_data[14:13] } = color;
+ assign vdac_hsync = hsync;
+ assign vdac_vsync = vsync;
+ 
+ assign gpio[0] = hsync;
+ assign gpio[1] = vsync;
+
 
 //--AVRSPI--FlashROM-----------------------------------------------------------
 
