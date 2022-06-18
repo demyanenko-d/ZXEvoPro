@@ -3,7 +3,7 @@
 #include <driver/spi_slave_hd.h>
 
 __attribute__((used)) static const uint8_t test_service_firmware[] = {
-#include "../../../../TestService/FPGA/main.ttf"
+#include "../../../FPGA/main.ttf"
 };
 
 enum class cpld_mode_t {
@@ -70,7 +70,12 @@ void spi_master_init();
 void spi_set_cpld_ssel_mode(cpld_mode_t mode);
 void spi_set_cpld_config(cpld_config &config);
 
+void spi_tns_set_ssel();
+void spi_tns_clr_ssel();
+void spi_tns_sel_reg(tns_commands number);
+uint8_t spi_tns_same_reg(uint8_t data);
 uint8_t spi_tns_transfer(tns_commands number, uint8_t data);
+
 
 void spi_tns_set_video_mode(bool vga, uint8_t mode);
 

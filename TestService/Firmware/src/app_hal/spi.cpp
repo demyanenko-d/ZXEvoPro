@@ -11,7 +11,7 @@ void load_fpga_firmware(const uint8_t *buffer, uint32_t size)
     SPI.begin(DCLK_IO, -1, DATA0_IO, -1);
 
     digitalWrite(CONFIG_IO, LOW);
-    delay(50);
+    delay(5);
     digitalWrite(CONFIG_IO, HIGH);
 
     int cnt = 0;
@@ -28,7 +28,7 @@ void load_fpga_firmware(const uint8_t *buffer, uint32_t size)
             Serial.printf("fpga ready ....\n");
             break;
         }
-        delay(10);
+        // delay(10);
     }
 
     if (ready)
@@ -51,13 +51,18 @@ void load_fpga_firmware(const uint8_t *buffer, uint32_t size)
     SPI.transfer(0xff);
     SPI.end();
 
+    digitalWrite(SOFTRST_IO, LOW);
     Serial.printf("end fpga config \n");
+
+    delay(1);
+    digitalWrite(SOFTRST_IO, HIGH);
 }
 
 void spi_master_init()
 {
-    SPI.setFrequency(7000000);
+    SPI.setFrequency(80000000);
     SPI.setHwCs(false);
+    SPI.setBitOrder(LSBFIRST);
 
     digitalWrite(SPI_MASTER_SSEL_IO, HIGH);
 
@@ -118,20 +123,37 @@ void spi_set_cpld_config(cpld_config &config)
     }
 
     spi_set_cpld_ssel_mode(cpld_mode_t::config);
+    digitalWrite(SPI_MASTER_SSEL_IO, LOW);
     SPI.transfer(config_data);
+    digitalWrite(SPI_MASTER_SSEL_IO, HIGH);
     spi_set_cpld_ssel_mode(cpld_mode_t::transfer);
+}
+
+void spi_tns_set_ssel() {
+    digitalWrite(SPI_MASTER_SSEL_IO, HIGH);
+}
+
+void spi_tns_clr_ssel() {
+    digitalWrite(SPI_MASTER_SSEL_IO, LOW);
+}
+
+void spi_tns_sel_reg(tns_commands number) {
+    spi_tns_set_ssel();
+    SPI.transfer((uint8_t)number);
+    
+}
+
+uint8_t spi_tns_same_reg(uint8_t data) {
+    spi_tns_clr_ssel();
+    auto res = SPI.transfer(data);
+    spi_tns_set_ssel();
+    return res;
 }
 
 uint8_t spi_tns_transfer(tns_commands number, uint8_t data)
 {
-
-    digitalWrite(SPI_MASTER_SSEL_IO, LOW);
-    SPI.transfer((uint8_t)number);
-    digitalWrite(SPI_MASTER_SSEL_IO, HIGH);
-    SPI.transfer(data);
-    digitalWrite(SPI_MASTER_SSEL_IO, LOW);
-
-    return 0;
+    spi_tns_sel_reg(number);
+    return spi_tns_same_reg(data);
 }
 
 void spi_tns_set_video_mode(bool vga, uint8_t mode) {

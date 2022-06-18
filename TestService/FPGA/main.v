@@ -730,10 +730,14 @@ assign 	vdac_clk = fclk;
                            .rdaddress(video_addr[8:0]), .q(attrcode1) );
  lpm_ram_dp_9x8 attrmem2 ( .data(scr_attr), .wraddress(scr_addr[8:0]), .wren((scr_wren_a)&&(scr_addr[10:9]==2'h2)),
                            .rdaddress(video_addr[8:0]), .q(attrcode2) );
- assign attrcode = (video_addr[10:9]==2'h0) ? attrcode0 :
-                   (video_addr[10:9]==2'h1) ? attrcode1 : attrcode2 ;
+                           
+                           
+ assign attrcode = (video_addr[10:9]==2'h0) ? attrcode0 : (video_addr[10:9]==2'h1) ? attrcode1 : attrcode2 ;
  assign vcharline = (vcharlinecount[3]) ? ~vcharlinecount[2:0] : vcharlinecount[2:0];
+ 
+
  lpm_rom_11x6 chargen ( .address({ charcode, vcharline }), .q(charpix) );
+ 
 
  assign fcolor = { attrcode[2], (attrcode[2]&attrcode[3]),
                    attrcode[1], (attrcode[1]&attrcode[3]),
@@ -753,7 +757,11 @@ assign 	vdac_clk = fclk;
  assign image_color = (mouse_mask) ? BLACK : ( pixel ? fcolor : bcolor ) ;
 
  assign { vdac_data[9:8], vdac_data[4:3], vdac_data[14:13] } = color;
+ 
+ // ddv
  assign vdac_hsync = hsync;
+ //assign vdac_hsync = spido;
+ 
  assign vdac_vsync = vsync;
  
  assign gpio[0] = hsync;

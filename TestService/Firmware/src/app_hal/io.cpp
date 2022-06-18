@@ -28,6 +28,10 @@ void io_init()
     pinMode(DCLK_IO, OUTPUT);
     pinMode(SPI_MASTER_SSEL_IO, OUTPUT);
 
+    pinMode(SPI_SLAVE_MOSI_IO, INPUT);
+    pinMode(SPI_SLAVE_SSEL_IO, INPUT);
+    pinMode(SPI_SLAVE_SCLK_IO, INPUT);
+
     io_reset_pins();
 }
 
