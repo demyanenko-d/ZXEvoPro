@@ -3,7 +3,7 @@
 #include <cstring>
 
 #include "io.hpp"
-#include "si5351.h"
+#include "libs/si5351.h"
 
 constexpr uint32_t I2C_MASTER_FREQ_HZ = 100000;
 
@@ -25,12 +25,12 @@ static bool detectDevice(uint8_t addr, const std::string &device)
 
     if (error == 0)
     {
-        Serial.printf("%s found!", device.c_str());
+        Serial.printf("%s found!\n", device.c_str());
         return true;
     }
     else
     {
-        Serial.printf("#Error: %s not found!", device.c_str());
+        Serial.printf("#Error: %s not found!\n", device.c_str());
         return false;
     }
 }
@@ -56,30 +56,6 @@ void i2c_init()
     init_gpio();
 }
 
-uint8_t i2c_wr_si5351a(si5351a_revb_register_t data)
-{
-    Wire.beginTransmission(SI5351A_I2C_ADDR);
-    Wire.write((uint8_t)data.address);
-    Wire.write((uint8_t)data.value);
-    return Wire.endTransmission(true);
-}
-
-uint8_t i2c_rd_si5351a(uint8_t addr, uint8_t &val)
-{
-
-    Wire.beginTransmission(SI5351A_I2C_ADDR);
-    Wire.write(addr);
-    auto error = Wire.endTransmission(false);
-
-    if (error == 0)
-    {
-        error = Wire.requestFrom(SI5351A_I2C_ADDR, 1, true);
-        val = Wire.read();
-    }
-
-    return error;
-}
-
 static void init_si5131()
 {
     Serial.printf("init si5351a\n\r");
@@ -88,7 +64,7 @@ static void init_si5131()
 
     if (!i2c_found)
     {
-        Serial.println("Device not found on I2C bus!");
+        Serial.println("Device not found on I2C bus!\n");
     } else {
         si5351.set_freq(2800000000ULL, SI5351_CLK0); // 28MHz
         si5351.set_freq(1228800000ULL, SI5351_CLK1); // 12.288 MHz
@@ -96,21 +72,7 @@ static void init_si5131()
         si5351.update_status();
     }
 
-    Serial.printf("si5351a init done\n\r");
-
-    /*uint8_t status_reg = 0;
-    do
-    {
-        i2c_rd_si5351a(0, status_reg);
-    } while (status_reg >> 7 == 1);
-
-    Serial.printf("si5351a ready\n\r");
-
-    for (int i = 0; i < SI5351A_REVB_REG_CONFIG_NUM_REGS; i++) {
-        auto error = i2c_wr_si5351a(si5351a_revb_registers[i]);
-    }*/
-
-    
+    Serial.printf("si5351a init done\n");    
 }
 
 static void init_wm8969()

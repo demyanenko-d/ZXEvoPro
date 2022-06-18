@@ -45,3 +45,4 @@ constexpr auto ATX_POWERON_IO = GPIO_NUM_47;
 constexpr auto FPGA_IRQ_IO = GPIO_NUM_48;
 
 void io_init();
+void io_reset_pins();
