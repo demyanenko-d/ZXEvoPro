@@ -5,7 +5,7 @@
 #include "io.hpp"
 #include "libs/si5351.h"
 
-constexpr uint32_t I2C_MASTER_FREQ_HZ = 10000;
+constexpr uint32_t I2C_MASTER_FREQ_HZ = 100000;
 
 bool si5131_presend = false;
 bool wm8969_presend = false;

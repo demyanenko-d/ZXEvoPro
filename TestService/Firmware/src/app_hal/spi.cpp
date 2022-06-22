@@ -60,7 +60,7 @@ void load_fpga_firmware(const uint8_t *buffer, uint32_t size)
 
 void spi_master_init()
 {
-    SPI.setFrequency(80000000);
+    SPI.setFrequency(20000000);
     SPI.setHwCs(false);
     SPI.setBitOrder(LSBFIRST);
 
@@ -153,7 +153,9 @@ uint8_t spi_tns_same_reg(uint8_t data) {
 uint8_t spi_tns_transfer(tns_commands number, uint8_t data)
 {
     spi_tns_sel_reg(number);
-    return spi_tns_same_reg(data);
+    auto res = spi_tns_same_reg(data);
+    Serial.printf("spi addr: %i val: %i res: %i\n", (int)number, (int)data, (int)res);
+    return res;
 }
 
 void spi_tns_set_video_mode(bool vga, uint8_t mode) {

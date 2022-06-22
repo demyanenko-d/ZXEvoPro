@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <Wire.h>
 #include "app_hal/io.hpp"
 #include "app_hal/i2c.hpp"
 #include "app_hal/spi.hpp"
@@ -6,10 +7,51 @@
 #include "app_hal/eeprom.hpp"
 #include "test_service/messages.hpp"
 
+#include "libs/PCF8574.h"
+
+PCF8574 pcf8574(&Wire, GPIO0_I2C_ADDR);
+
+uint8_t random8()
+{
+  static uint8_t val = 0;
+  return val++;
+}
+
+void test_fpga_exchange(void)
+{
+  uint8_t i, curr, prev;
+  curr = random8();
+  spi_tns_transfer(tns_commands::SCR_SET_ATTR, curr);
+  i = 0;
+  do
+  {
+    prev = ~curr;
+    curr = random8();
+    if (spi_tns_transfer(tns_commands::SCR_SET_ATTR, curr) != prev)
+    {
+      Serial.printf("We have some errors!");
+      while (1)
+      {
+        uint16_t j, errors;
+        errors = 0;
+        j = 50000;
+        do
+        {
+          prev = ~curr;
+          curr = random8();
+          if (spi_tns_transfer(tns_commands::SCR_SET_ATTR, curr) != prev)
+            errors++;
+        } while (--j);
+        Serial.printf("\r\nQuantity wrong byte from 50000 - %i", (int)errors);
+      }
+    }
+  } while (--i);
+}
+
 void setup()
 {
   Serial.begin(115200);
-  delay(250);
+  delay(1000);
 
   Serial.println("\nReady");
 
@@ -32,6 +74,31 @@ void setup()
   spi_set_cpld_config(cfg);
 
   spi_tns_set_video_mode(true, 0);
+
+  pcf8574.pinMode(P6, OUTPUT);
+
+  Serial.print("Init pcf8574...");
+  if (pcf8574.begin())
+  {
+    Serial.println("OK");
+  }
+  else
+  {
+    Serial.println("KO");
+  }
+
+  test_fpga_exchange();
+
+  uint8_t tmp = 0;
+
+  tmp = spi_tns_transfer(tns_commands::INT_CONTROL, 0b00000000);
+  Serial.printf("int control 1: %i\n", (int)tmp);
+  tmp = spi_tns_transfer(tns_commands::MTST_CONTROL, 0b00000001);
+  tmp = spi_tns_transfer(tns_commands::MTST_CONTROL, 0b00000000);
+  tmp = spi_tns_transfer(tns_commands::MTST_CONTROL, 0b00000001);
+  Serial.printf("mist control 1: %i\n", (int)tmp);
+  tmp = spi_tns_transfer(tns_commands::INT_CONTROL, 0b00000000);
+  Serial.printf("int control 2: %i\n", (int)tmp);
 }
 
 bool init_fpga = true;
@@ -64,10 +131,33 @@ const tns::MENU_DESC menu_main = {
     tns::str_menu_main,
 };
 
+int val = 0;
+int cnt = 0;
+bool menu_done = false;
+uint16_t mtst_pass, mtst_fail;
+
 void loop()
 {
-  tns::scr_backgnd();
-  tns::scr_menu(menu_main);
+  if (!menu_done)
+  {
+    tns::scr_backgnd();
+    menu_done = true;
+  }
+  // tns::scr_menu(menu_main);
 
-  delay(100);
+  pcf8574.digitalWrite(P6, val);
+  val ^= 1;
+
+  delay(300);
+
+  if (cnt % 10 == 0)
+  {
+    mtst_pass = spi_tns_transfer(tns_commands::MTST_PASS_CNT0, 0xff);
+    mtst_pass |= (spi_tns_transfer(tns_commands::MTST_PASS_CNT1, 0xff) << 8);
+    mtst_fail = spi_tns_transfer(tns_commands::MTST_FAIL_CNT0, 0xff);
+    mtst_fail |= (spi_tns_transfer(tns_commands::MTST_FAIL_CNT1, 0xff) << 8);
+
+    Serial.printf("pass: %i fail: %i\n", (int)mtst_pass, (int)mtst_fail);
+  }
+  cnt++;
 }

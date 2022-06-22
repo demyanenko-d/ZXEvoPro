@@ -162,30 +162,27 @@ namespace tns
 
         scr_set_attr(0xf0);
 
-        uint8_t ypos = 13;
-        uint8_t xpos = 5;
-        scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"          ‹‹    ‹‹€€€€€€€€€€€€‹‹                ");
-        scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"      ‹€€€≤€€€€€€€€≤≤≤≤≤≤≤≤≤≤≤€€€€‹‹‹ﬂﬂ    ﬂﬂ‹  ");
-        scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"  ‹ﬂﬂ €€≤≤≤≤≤≤≤≤≤≤€€€≤≤≤≤≤≤≤≤≤≤≤€€ﬂ   ‹‹ﬂﬂﬂ   ﬂ ");
-        scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)" €  ﬂﬂﬂ€€€≤≤≤≤≤≤≤≤≤≤≤€€€€≤≤≤≤≤≤≤€ﬂ› €ﬂ         €");
-        scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"ﬁ›       ﬂ€€€€ﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂ€€€€€€€€  €€€          €");
-        scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"ﬁ›       ﬁ€‹€ﬂﬂ€              ﬂ   ﬁ€€          €");
-        scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)" €       €€€›                     €€ €   ‹€‹  ﬁ›");
-        scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)" ﬁ       €€€€‹           ‹‹    ‹‹‹€€ ﬁ€€ﬂ‹€ﬂ  € ");
-        scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"  €      ﬂ€€‹€€€       ‹€‹‹€€ ﬂ€‹ ﬂ€‹  ‹€ﬂ€  €  ");
-        scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"   €      €›                    ﬂ›   € €‹ﬂ€‹€   ");
-        scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"    €    ﬁ€                      €€‹‹‹  ﬂ€€€    ");
+        uint8_t ypos = 3;
+        uint8_t xpos = 4;
+        scr_set_cursor(xpos, ypos++);  
+        scr_print_msg((const uint8_t*)"                                               ‹€");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                                             ‹€±±");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                                           ‹€ﬂ±≤≤");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                                          €ﬂ±‹≤≤≤");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                                        €ﬂ±‹≤≤≤≤±");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                                      ‹€±±≤≤≤≤±±‹");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                                    ‹€±±≤≤≤≤≤±±€€");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                                  ‹€ﬂ±≤≤≤≤≤±±€€ﬂ ");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                                ‹€ﬂ±ﬁ≤≤≤≤±±€€€   ");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                         ‹‹€€€€ﬂﬂ±±±±≤≤±±€€€     ");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                      ‹≤ΩÃÃ≤≤≤≤≤‹±±±±±±≤€€ﬂ      ");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                     €±±≤≤≤≤≤≤±≤€€≤‹±±≤€€        ");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                     ›≤≤≤≤±≤≤±≤≤±≤€€€±≤€›        ");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                     ≤≤≤≤€€€ﬂﬂ€€›≤≤€€€≤€›        ");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                     €≤≤€€€     ﬂ›≤€€€€€€        ");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                     ±€€€ﬂ      €≤≤≤€€€€         ");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                       ﬂ`      €≤≤≤≤€€€          ");scr_set_cursor(xpos, ypos++);
+        scr_print_msg((const uint8_t*)"                              €€€€€€ﬂ            ");scr_set_cursor(xpos, ypos++);
     }
 
     //-----------------------------------------------------------------------------

@@ -924,8 +924,11 @@ assign 	vdac_clk = fclk;
                        outdata <= mtst_fail_counter[7:0];
                        temp_reg <= mtst_fail_counter[15:8];
                       end
-       COVOX:         outdata <= { 4'd0, cvx_ptr_diff };
-       TEMP_REG:      outdata <= temp_reg; // read after MTST_PASS_CNT0, MTST_FAIL_CNT0
+       COVOX:           outdata <= { 4'd0, cvx_ptr_diff };
+       TEMP_REG:        outdata <= temp_reg; // read after MTST_PASS_CNT0, MTST_FAIL_CNT0
+       INT_CONTROL:	  begin
+						outdata <= {5'b0, vsync, hsync, mtst_run}; // ddv
+					  end
        default:       outdata <= 8'hff;
       endcase
       //

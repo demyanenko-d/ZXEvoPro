@@ -1,5 +1,4 @@
-/* 
-#include "dram.hpp"
+ #include "dram.hpp"
 #include "screen.hpp"
 #include "output.hpp"
 #include "messages.hpp"
@@ -61,5 +60,3 @@ void tns::Test_DRAM(uint8_t callflag)
 }
 
 //-----------------------------------------------------------------------------
-
-*/

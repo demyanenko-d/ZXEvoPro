@@ -57,8 +57,8 @@ parameter DRAM_MA_SIZE = 10;
     begin
         if( !rst_n )
         begin
-            pass_counter <= 16'd0;
-            fail_counter <= 16'd0;
+            pass_counter <= 16'd42;
+            fail_counter <= 16'd42;
         end
         else if( inc_pass_ctr )
         begin
