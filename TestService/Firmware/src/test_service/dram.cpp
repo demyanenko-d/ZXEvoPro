@@ -1,4 +1,4 @@
- #include "dram.hpp"
+#include "dram.hpp"
 #include "screen.hpp"
 #include "output.hpp"
 #include "messages.hpp"
@@ -32,10 +32,10 @@ void tns::Test_DRAM(uint8_t callflag)
 {
     // u8 stored_flags1=flags1;
     uint16_t mtst_pass, mtst_fail;
-    mtst_pass = spi_tns_transfer(tns_commands::MTST_FAIL_CNT0, 0xff);
-    mtst_pass |= (spi_tns_transfer(tns_commands::MTST_PASS_CNT1, 0xff) << 8);
-    mtst_fail = spi_tns_transfer(tns_commands::MTST_FAIL_CNT0, 0xff);
-    mtst_fail |= (spi_tns_transfer(tns_commands::MTST_FAIL_CNT1, 0xff) << 8);
+    mtst_pass = CPLD.spi_tns_transfer(TNSCommand::MTST_FAIL_CNT0, 0xff);
+    mtst_pass |= (CPLD.spi_tns_transfer(TNSCommand::MTST_PASS_CNT1, 0xff) << 8);
+    mtst_fail = CPLD.spi_tns_transfer(TNSCommand::MTST_FAIL_CNT0, 0xff);
+    mtst_fail |= (CPLD.spi_tns_transfer(TNSCommand::MTST_FAIL_CNT1, 0xff) << 8);
 
     if (mtst_fail)
     {

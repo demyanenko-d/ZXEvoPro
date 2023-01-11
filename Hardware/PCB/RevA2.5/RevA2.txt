@@ -1,0 +1,10 @@
+Board Information Report
+Filename     : D:\Projects\ZXEvoPro\Hardware\PCB\RevA2\RevA2.PcbDoc
+Date         : 13.09.2022
+Time         : 23:50:11
+Time Elapsed : 00:00:00
+
+General
+    Board Size, 173mmx171mm
+    Components on board, 313
+count : 2

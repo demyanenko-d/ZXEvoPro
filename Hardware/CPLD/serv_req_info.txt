@@ -1,0 +1,36 @@
+<internal_error>
+	<executable>quartus_map.exe</executable>
+	<sub_system>VRFX</sub_system>
+	<file>/quartus/synth/vrfx/verific/verilog/veriid.cpp</file>
+	<line>1482</line>
+	<callstack>
+	0x06285418: synth_vrfx + 0x35418
+	0x06302e0f: synth_vrfx + 0xb2e0f (?elaborate@VRFX_ELABORATOR@@UAIPAVHDB_COMPONENT_SCHEMA@@PAVBASEX_ELABORATE_INFO@@@Z + 0x6b87f)
+	0x06343ecb: synth_vrfx + 0xf3ecb (?elaborate@VRFX_ELABORATOR@@UAIPAVHDB_COMPONENT_SCHEMA@@PAVBASEX_ELABORATE_INFO@@@Z + 0xac93b)
+	0x06344504: synth_vrfx + 0xf4504 (?elaborate@VRFX_ELABORATOR@@UAIPAVHDB_COMPONENT_SCHEMA@@PAVBASEX_ELABORATE_INFO@@@Z + 0xacf74)
+	</callstack>
+	<error>save &amp;&amp; save-&gt;GetClassId() == GetClassId()</error>
+	<date>Wed Jun 29 14:04:05 2022</date>
+	<version>Quartus II Version 9.0 Build 235 06/17/2009 Service Pack 2 SJ Web Edition</version>
+	<full_error>save &amp;&amp; save-&gt;GetClassId() == GetClassId()
+Quartus II Version 9.0 Build 235 06/17/2009 Service Pack 2 SJ Web Edition </full_error>
+</internal_error>
+
+<internal_error>
+	<executable>quartus_map.exe</executable>
+	<sub_system>VRFX</sub_system>
+	<file>/quartus/synth/vrfx/verific/verilog/veriid.cpp</file>
+	<line>1482</line>
+	<callstack>
+	0x05aa5418: synth_vrfx + 0x35418
+	0x05b22e0f: synth_vrfx + 0xb2e0f (?elaborate@VRFX_ELABORATOR@@UAIPAVHDB_COMPONENT_SCHEMA@@PAVBASEX_ELABORATE_INFO@@@Z + 0x6b87f)
+	0x05b63ecb: synth_vrfx + 0xf3ecb (?elaborate@VRFX_ELABORATOR@@UAIPAVHDB_COMPONENT_SCHEMA@@PAVBASEX_ELABORATE_INFO@@@Z + 0xac93b)
+	0x05b64504: synth_vrfx + 0xf4504 (?elaborate@VRFX_ELABORATOR@@UAIPAVHDB_COMPONENT_SCHEMA@@PAVBASEX_ELABORATE_INFO@@@Z + 0xacf74)
+	</callstack>
+	<error>save &amp;&amp; save-&gt;GetClassId() == GetClassId()</error>
+	<date>Wed Jun 29 14:04:15 2022</date>
+	<version>Quartus II Version 9.0 Build 235 06/17/2009 Service Pack 2 SJ Web Edition</version>
+	<full_error>save &amp;&amp; save-&gt;GetClassId() == GetClassId()
+Quartus II Version 9.0 Build 235 06/17/2009 Service Pack 2 SJ Web Edition </full_error>
+</internal_error>
+

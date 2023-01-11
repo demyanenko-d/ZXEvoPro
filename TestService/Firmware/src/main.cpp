@@ -21,13 +21,13 @@ void test_fpga_exchange(void)
 {
   uint8_t i, curr, prev;
   curr = random8();
-  spi_tns_transfer(tns_commands::SCR_SET_ATTR, curr);
+  CPLD.spi_tns_transfer(TNSCommand::SCR_SET_ATTR, curr);
   i = 0;
   do
   {
     prev = ~curr;
     curr = random8();
-    if (spi_tns_transfer(tns_commands::SCR_SET_ATTR, curr) != prev)
+    if (CPLD.spi_tns_transfer(TNSCommand::SCR_SET_ATTR, curr) != prev)
     {
       Serial.printf("We have some errors!");
       while (1)
@@ -39,7 +39,7 @@ void test_fpga_exchange(void)
         {
           prev = ~curr;
           curr = random8();
-          if (spi_tns_transfer(tns_commands::SCR_SET_ATTR, curr) != prev)
+          if (CPLD.spi_tns_transfer(TNSCommand::SCR_SET_ATTR, curr) != prev)
             errors++;
         } while (--j);
         Serial.printf("\r\nQuantity wrong byte from 50000 - %i", (int)errors);
@@ -64,16 +64,13 @@ void setup()
 
   delay(20);
 
-  cpld_config cfg = {
-      .sd0_master = cpld_master_t::esp32,
-      .sd1_master = cpld_master_t::esp32,
-      .esp32_slave = cpld_slave_t::esp32_fpga,
-  };
-
-  spi_master_init();
-  spi_set_cpld_config(cfg);
-
-  spi_tns_set_video_mode(true, 0);
+  CPLD.begin();
+  CPLD
+      .select_sd0_master(CPLDClass::MasterSelect::Esp32)
+      .select_sd1_master(CPLDClass::MasterSelect::Esp32)
+      .select_esp32_slave(CPLDClass::SlaveSelect::ESP32_FPGA)
+      .set_tns_video_mode(true, 0)
+      .update();
 
   pcf8574.pinMode(P6, OUTPUT);
 
@@ -91,13 +88,13 @@ void setup()
 
   uint8_t tmp = 0;
 
-  tmp = spi_tns_transfer(tns_commands::INT_CONTROL, 0b00000000);
+  tmp = CPLD.spi_tns_transfer(TNSCommand::INT_CONTROL, 0b00000000);
   Serial.printf("int control 1: %i\n", (int)tmp);
-  tmp = spi_tns_transfer(tns_commands::MTST_CONTROL, 0b00000001);
-  tmp = spi_tns_transfer(tns_commands::MTST_CONTROL, 0b00000000);
-  tmp = spi_tns_transfer(tns_commands::MTST_CONTROL, 0b00000001);
+  tmp = CPLD.spi_tns_transfer(TNSCommand::MTST_CONTROL, 0b00000001);
+  tmp = CPLD.spi_tns_transfer(TNSCommand::MTST_CONTROL, 0b00000000);
+  tmp = CPLD.spi_tns_transfer(TNSCommand::MTST_CONTROL, 0b00000001);
   Serial.printf("mist control 1: %i\n", (int)tmp);
-  tmp = spi_tns_transfer(tns_commands::INT_CONTROL, 0b00000000);
+  tmp = CPLD.spi_tns_transfer(TNSCommand::INT_CONTROL, 0b00000000);
   Serial.printf("int control 2: %i\n", (int)tmp);
 }
 
@@ -152,10 +149,10 @@ void loop()
 
   if (cnt % 10 == 0)
   {
-    mtst_pass = spi_tns_transfer(tns_commands::MTST_PASS_CNT0, 0xff);
-    mtst_pass |= (spi_tns_transfer(tns_commands::MTST_PASS_CNT1, 0xff) << 8);
-    mtst_fail = spi_tns_transfer(tns_commands::MTST_FAIL_CNT0, 0xff);
-    mtst_fail |= (spi_tns_transfer(tns_commands::MTST_FAIL_CNT1, 0xff) << 8);
+    mtst_pass = CPLD.spi_tns_transfer(TNSCommand::MTST_PASS_CNT0, 0xff);
+    mtst_pass |= (CPLD.spi_tns_transfer(TNSCommand::MTST_PASS_CNT1, 0xff) << 8);
+    mtst_fail = CPLD.spi_tns_transfer(TNSCommand::MTST_FAIL_CNT0, 0xff);
+    mtst_fail |= (CPLD.spi_tns_transfer(TNSCommand::MTST_FAIL_CNT1, 0xff) << 8);
 
     Serial.printf("pass: %i fail: %i\n", (int)mtst_pass, (int)mtst_fail);
   }

@@ -44,5 +44,14 @@ constexpr auto ESP_IO46 = GPIO_NUM_46;
 constexpr auto ATX_POWERON_IO = GPIO_NUM_47;
 constexpr auto FPGA_IRQ_IO = GPIO_NUM_48;
 
+constexpr auto RGB_VIDEO_R1 = SPI_MASTER_SSEL_IO;
+constexpr auto RGB_VIDEO_R0 = SPI_MASTER_SCLK_IO;
+constexpr auto RGB_VIDEO_G1 = SPI_MASTER_MOSI_IO;
+constexpr auto RGB_VIDEO_G0 = SPI_MASTER_MISO_IO;
+constexpr auto RGB_VIDEO_B1 = SPI_SLAVE_SSEL_IO;
+constexpr auto RGB_VIDEO_B0 = SPI_SLAVE_SCLK_IO;
+constexpr auto RGB_VIDEO_VS = SPI_SLAVE_MISO_IO;
+constexpr auto RGB_VIDEO_HS = SPI_SLAVE_MOSI_IO;
+
 void io_init();
 void io_reset_pins();

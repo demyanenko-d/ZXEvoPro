@@ -1,9 +1,8 @@
 #include "spi.hpp"
 #include "io.hpp"
-#include <Arduino.h>
-#include <SPI.h>
 
 SPIClass SlaveSPI(HSPI);
+CPLDClass CPLD;
 
 void load_fpga_firmware(const uint8_t *buffer, uint32_t size)
 {
@@ -58,7 +57,168 @@ void load_fpga_firmware(const uint8_t *buffer, uint32_t size)
     digitalWrite(SOFTRST_IO, HIGH);
 }
 
-void spi_master_init()
+void CPLDClass::enter_video_mode()
+{
+    if (cpld_video_mode)
+        return;
+
+    // подключить fpga в качестве slave
+    auto config_data = create_config_data(MasterSelect::Esp32, MasterSelect::Esp32, SlaveSelect::ESP32_FPGA, false);
+    write_cpld_config(config_data);
+
+    // отключить синхронизацию в fpga
+    spi_tns_transfer(TNSCommand::SCR_MODE, 0x40);
+
+    // включить video_mode
+    config_data = create_config_data(MasterSelect::Esp32, MasterSelect::Esp32, SlaveSelect::ESP32_FPGA, true);
+    write_cpld_config(config_data);
+    cpld_video_mode = true;
+
+    // отключение spi
+    spi_master_done();
+    spi_slave_done();
+}
+
+void CPLDClass::exit_video_mode()
+{
+    if (!cpld_video_mode)
+        return;
+
+    // по posedge cpld_ssel происходит выход из video_mode
+    set_cpld_ssel_mode(Mode::Config);
+    set_cpld_ssel_mode(Mode::Transfer);
+    cpld_video_mode = false;
+
+    // инициализацця SPI
+    spi_master_init();
+    spi_slave_init();
+
+    // подключить fpga в качестве slave
+    auto config_data = create_config_data(MasterSelect::Esp32, MasterSelect::Esp32, SlaveSelect::ESP32_FPGA, false);
+    write_cpld_config(config_data);
+
+    // включить синхронизацию в fpga
+    spi_tns_transfer(TNSCommand::SCR_MODE, tns_video_mode & (~0x40));
+
+    // востановить конфигурацию cpld
+    update();
+}
+
+bool CPLDClass::is_video_mode()
+{
+    return cpld_video_mode;
+}
+
+CPLDClass &CPLDClass::select_sd0_master(MasterSelect master)
+{
+    sd0_master = master;
+    return *this;
+}
+
+CPLDClass &CPLDClass::select_sd1_master(MasterSelect master)
+{
+    sd1_master = master;
+    return *this;
+}
+
+CPLDClass &CPLDClass::select_esp32_slave(SlaveSelect slave)
+{
+    esp32_slave = slave;
+    return *this;
+}
+
+CPLDClass &CPLDClass::set_tns_video_mode(bool vga, uint8_t mode)
+{
+    tns_video_mode = mode & 7;
+    if (vga)
+        tns_video_mode |= 0x80;
+
+    return *this;
+}
+
+uint8_t CPLDClass::create_config_data(MasterSelect sd0, MasterSelect sd1, SlaveSelect slave, bool video_mode) const
+{
+    uint8_t config_data = 0;
+
+    if (sd0_master == MasterSelect::FPGA)
+        config_data |= 1 << 0;
+
+    if (sd1_master == MasterSelect::FPGA)
+        config_data |= 1 << 1;
+
+    switch (esp32_slave)
+    {
+    case SlaveSelect::SD0:
+        config_data |= 0 << 4;
+        break;
+
+    case SlaveSelect::SD1:
+        config_data |= 1 << 4;
+        break;
+
+    case SlaveSelect::ESP32_FPGA:
+        config_data |= 2 << 4;
+        break;
+
+    default:
+        config_data |= 3 << 4;
+        break;
+    }
+
+    if (video_mode)
+        config_data |= 0x80;
+
+    return config_data;
+}
+
+void CPLDClass::write_cpld_config(uint8_t config)
+{
+    if (config == cpld_config_value)
+        return;
+
+    set_cpld_ssel_mode(Mode::Config);
+    spi_tns_clr_ssel();
+
+    SPI.transfer(config);
+
+    spi_tns_set_ssel();
+    set_cpld_ssel_mode(Mode::Transfer);
+
+    cpld_config_value = config;
+}
+
+bool CPLDClass::update()
+{
+    if (cpld_video_mode)
+        return false;
+
+    auto config_data = create_config_data(sd0_master, sd1_master, esp32_slave, false);
+
+    if (cpld_config_value != config_data)
+        write_cpld_config(config_data);
+
+    return true;
+}
+
+void CPLDClass::update_tns_video_mode()
+{
+    spi_tns_transfer(TNSCommand::SCR_MODE, tns_video_mode);
+}
+
+void CPLDClass::set_cpld_ssel_mode(Mode mode)
+{
+    switch (mode)
+    {
+    case Mode::Config:
+        digitalWrite(CPLD_SSEL_IO, HIGH);
+        break;
+    case Mode::Transfer:
+        digitalWrite(CPLD_SSEL_IO, LOW);
+        break;
+    }
+}
+
+void CPLDClass::spi_master_init()
 {
     SPI.setFrequency(20000000);
     SPI.setHwCs(false);
@@ -74,96 +234,50 @@ void spi_master_init()
         -1);
 }
 
-void spi_slave_init()
+void CPLDClass::spi_slave_init()
 {
     SlaveSPI.end();
     SlaveSPI.begin(DCLK_IO, -1, DATA0_IO, -1);
 }
 
-void spi_set_cpld_ssel_mode(cpld_mode_t mode)
+void CPLDClass::spi_master_done()
 {
-    switch (mode)
-    {
-    case cpld_mode_t::config:
-        digitalWrite(CPLD_SSEL_IO, HIGH);
-        break;
-    case cpld_mode_t::transfer:
-        digitalWrite(CPLD_SSEL_IO, LOW);
-        break;
-    }
+    SPI.end();
 }
 
-void spi_set_cpld_config(cpld_config &config)
+void CPLDClass::spi_slave_done()
 {
-    uint8_t config_data = 0;
-
-    if (config.sd0_master == cpld_master_t::fpga)
-        config_data |= 1 << 0;
-
-    if (config.sd1_master == cpld_master_t::fpga)
-        config_data |= 1 << 1;
-
-    switch (config.esp32_slave)
-    {
-    case cpld_slave_t::sd0:
-        config_data |= 0 << 4;
-        break;
-
-    case cpld_slave_t::sd1:
-        config_data |= 1 << 4;
-        break;
-
-    case cpld_slave_t::esp32_fpga:
-        config_data |= 2 << 4;
-        break;
-
-    default:
-        config_data |= 3 << 4;
-        break;
-    }
-
-    spi_set_cpld_ssel_mode(cpld_mode_t::config);
-    digitalWrite(SPI_MASTER_SSEL_IO, LOW);
-    SPI.transfer(config_data);
-    digitalWrite(SPI_MASTER_SSEL_IO, HIGH);
-    spi_set_cpld_ssel_mode(cpld_mode_t::transfer);
+    SlaveSPI.end();
 }
 
-void spi_tns_set_ssel() {
-    digitalWrite(SPI_MASTER_SSEL_IO, HIGH);
+void CPLDClass::spi_tns_set_ssel()
+{
+    gpio_set_level(SPI_MASTER_SSEL_IO, 1);
 }
 
-void spi_tns_clr_ssel() {
-    digitalWrite(SPI_MASTER_SSEL_IO, LOW);
+void CPLDClass::spi_tns_clr_ssel()
+{
+    gpio_set_level(SPI_MASTER_SSEL_IO, 0);
 }
 
-void spi_tns_sel_reg(tns_commands number) {
+void CPLDClass::spi_tns_sel_reg(TNSCommand number)
+{
     spi_tns_set_ssel();
     SPI.transfer((uint8_t)number);
-    
 }
 
-uint8_t spi_tns_same_reg(uint8_t data) {
+uint8_t CPLDClass::spi_tns_same_reg(uint8_t data)
+{
     spi_tns_clr_ssel();
     auto res = SPI.transfer(data);
     spi_tns_set_ssel();
     return res;
 }
 
-uint8_t spi_tns_transfer(tns_commands number, uint8_t data)
+uint8_t CPLDClass::spi_tns_transfer(TNSCommand number, uint8_t data)
 {
     spi_tns_sel_reg(number);
     auto res = spi_tns_same_reg(data);
     Serial.printf("spi addr: %i val: %i res: %i\n", (int)number, (int)data, (int)res);
     return res;
 }
-
-void spi_tns_set_video_mode(bool vga, uint8_t mode) {
-    uint8_t data = 0;
-
-    if (!vga) data|= 0x80;
-    data |= mode & 7;
-
-    spi_tns_transfer(tns_commands::SCR_MODE, data);
-}
-

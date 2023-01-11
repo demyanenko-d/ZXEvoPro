@@ -80,14 +80,6 @@ set_location_assignment PIN_43 -to dac_r_o[0]
 set_location_assignment PIN_4 -to n_softrst_i
 set_location_assignment PIN_51 -to hsync_i
 set_location_assignment PIN_50 -to vsync_i
-set_location_assignment PIN_97 -to sd0.miso
-set_location_assignment PIN_96 -to sd0.sclk
-set_location_assignment PIN_95 -to sd0.mosi
-set_location_assignment PIN_92 -to sd0.ssel
-set_location_assignment PIN_91 -to sd1.miso
-set_location_assignment PIN_89 -to sd1.mosi
-set_location_assignment PIN_90 -to sd1.sclk
-set_location_assignment PIN_88 -to sd1.ssel
 set_location_assignment PIN_53 -to vdat_i[15]
 set_location_assignment PIN_55 -to vdat_i[14]
 set_location_assignment PIN_57 -to vdat_i[13]
@@ -110,24 +102,35 @@ set_global_assignment -name LL_ROOT_REGION ON -section_id "Root Region"
 set_global_assignment -name LL_MEMBER_STATE LOCKED -section_id "Root Region"
 set_global_assignment -name MISC_FILE "C:/projects/ZXEvoPro/Hardware/CPLD/CPLD.dpf"
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
-set_location_assignment PIN_8 -to fpga_s.miso
-set_location_assignment PIN_7 -to fpga_s.mosi
-set_location_assignment PIN_6 -to fpga_s.sclk
-set_location_assignment PIN_5 -to fpga_s.ssel
-set_location_assignment PIN_83 -to mcu.miso
-set_location_assignment PIN_81 -to mcu.mosi
-set_location_assignment PIN_78 -to mcu.ssel
-set_location_assignment PIN_82 -to mcu.sclk
-set_location_assignment PIN_86 -to esp32.miso
-set_location_assignment PIN_84 -to esp32.mosi
-set_location_assignment PIN_85 -to esp32.sclk
-set_location_assignment PIN_87 -to esp32.ssel
-set_location_assignment PIN_48 -to fpga_m.miso
-set_location_assignment PIN_47 -to fpga_m.mosi
-set_location_assignment PIN_49 -to fpga_m.sclk
-set_location_assignment PIN_44 -to fpga_m.ssel
 set_global_assignment -name CDF_FILE Chain1.cdf
 set_global_assignment -name USE_CONFIGURATION_DEVICE ON
 set_global_assignment -name OPTIMIZE_HOLD_TIMING "ALL PATHS"
 set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING ON
 set_global_assignment -name PHYSICAL_SYNTHESIS_EFFORT EXTRA
+set_location_assignment PIN_86 -to esp32_miso
+set_location_assignment PIN_84 -to esp32_mosi
+set_location_assignment PIN_85 -to esp32_sclk
+set_location_assignment PIN_87 -to esp32_ssel
+set_location_assignment PIN_48 -to fpga_m_miso
+set_location_assignment PIN_97 -to sd0_miso
+set_location_assignment PIN_96 -to sd0_sclk
+set_location_assignment PIN_95 -to sd0_mosi
+set_location_assignment PIN_92 -to sd0_ssel
+set_location_assignment PIN_91 -to sd1_miso
+set_location_assignment PIN_89 -to sd1_mosi
+set_location_assignment PIN_90 -to sd1_sclk
+set_location_assignment PIN_88 -to sd1_ssel
+set_location_assignment PIN_8 -to fpga_s_miso
+set_location_assignment PIN_7 -to fpga_s_mosi
+set_location_assignment PIN_6 -to fpga_s_sclk
+set_location_assignment PIN_5 -to fpga_s_ssel
+set_location_assignment PIN_83 -to mcu_miso
+set_location_assignment PIN_81 -to mcu_mosi
+set_location_assignment PIN_78 -to mcu_ssel
+set_location_assignment PIN_82 -to mcu_sclk
+set_location_assignment PIN_47 -to fpga_m_mosi
+set_location_assignment PIN_49 -to fpga_m_sclk
+set_location_assignment PIN_44 -to fpga_m_ssel
+set_global_assignment -name AUTO_RESTART_CONFIGURATION OFF
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS "AS INPUT TRI-STATED"
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS_NO_OUTPUT_GND "AS INPUT TRI-STATED"

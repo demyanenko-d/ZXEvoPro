@@ -17,27 +17,27 @@ namespace tns
     constexpr auto TOTAL_LANG = 2;
 
     //-----------------------------------------------------------------------------
-    // ì·‚†≠Æ¢™† ‚•™„È•£Æ †‚‡®°„‚†
+    // ÔøΩÔøΩ‚†≠ÔøΩÔøΩÔøΩÔøΩ ‚•™ÔøΩÈ•£ÔøΩ ÔøΩÔøΩ‡®°ÔøΩÔøΩ
     void scr_set_attr(uint8_t attr)
     {
-        spi_tns_transfer(tns_commands::SCR_SET_ATTR, attr);
+        CPLD.spi_tns_transfer(TNSCommand::SCR_SET_ATTR, attr);
     }
 
     //-----------------------------------------------------------------------------
-    // ì·‚†≠Æ¢™† ØÆß®Ê®® Ø•Á†‚® ≠† Ì™‡†≠• (x - 0..52; y - 0..24)
+    // ÔøΩÔøΩ‚†≠ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÊ®® ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩ ÔøΩÔøΩ‡†≠ÔøΩ (x - 0..52; y - 0..24)
     void scr_set_cursor(uint8_t x, uint8_t y)
     {
         uint16_t addr;
         addr = y * 53 + x - 1;
-        spi_tns_transfer(tns_commands::SCR_LOADDR, addr & 0xff);
-        spi_tns_transfer(tns_commands::SCR_HIADDR, (addr >> 8) & 0x07);
+        CPLD.spi_tns_transfer(TNSCommand::SCR_LOADDR, addr & 0xff);
+        CPLD.spi_tns_transfer(TNSCommand::SCR_HIADDR, (addr >> 8) & 0x07);
     }
 
     //-----------------------------------------------------------------------------
 
     void scr_print_msg(const uint8_t *msg)
     {
-        spi_tns_sel_reg(tns_commands::SCR_CHAR);
+        CPLD.spi_tns_sel_reg(TNSCommand::SCR_CHAR);
 
         uint8_t ch;
         do
@@ -50,7 +50,7 @@ namespace tns
                 attr = *msg;
                 msg++;
                 scr_set_attr(attr);
-                spi_tns_sel_reg(tns_commands::SCR_CHAR);
+                CPLD.spi_tns_sel_reg(TNSCommand::SCR_CHAR);
             }
             else if (ch == 0x16)
             {
@@ -60,10 +60,10 @@ namespace tns
                 y = *msg;
                 msg++;
                 scr_set_cursor(x, y);
-                spi_tns_sel_reg(tns_commands::SCR_CHAR);
+                CPLD.spi_tns_sel_reg(TNSCommand::SCR_CHAR);
             }
             else if (ch)
-                spi_tns_same_reg(ch);
+                CPLD.spi_tns_same_reg(ch);
         } while (ch);
     }
 
@@ -78,13 +78,13 @@ namespace tns
 
     void scr_print_msg_n(const char *msg, uint8_t size)
     {
-        spi_tns_sel_reg(tns_commands::SCR_CHAR);
+        CPLD.spi_tns_sel_reg(TNSCommand::SCR_CHAR);
         uint8_t ch;
         do
         {
             ch = *msg;
             msg++;
-            spi_tns_same_reg(ch);
+            CPLD.spi_tns_same_reg(ch);
         } while (--size);
     }
 
@@ -92,10 +92,10 @@ namespace tns
 
     void scr_print_rammsg_n(uint8_t *msg, uint8_t size)
     {
-        spi_tns_sel_reg(tns_commands::SCR_CHAR);
+        CPLD.spi_tns_sel_reg(TNSCommand::SCR_CHAR);
         do
         {
-            spi_tns_same_reg(*msg++);
+            CPLD.spi_tns_same_reg(*msg++);
         } while (--size);
     }
 
@@ -103,18 +103,18 @@ namespace tns
 
     void scr_putchar(uint8_t ch)
     {
-        spi_tns_transfer(tns_commands::SCR_CHAR, ch);
+        CPLD.spi_tns_transfer(TNSCommand::SCR_CHAR, ch);
     }
 
     //-----------------------------------------------------------------------------
 
     void scr_fill_char(uint8_t ch, uint16_t count)
     {
-        spi_tns_transfer(tns_commands::SCR_CHAR, ch);
+        CPLD.spi_tns_transfer(TNSCommand::SCR_CHAR, ch);
         while (--count)
         {
-            spi_tns_clr_ssel();
-            spi_tns_set_ssel();
+            CPLD.spi_tns_clr_ssel();
+            CPLD.spi_tns_set_ssel();
         }
     }
 
@@ -122,12 +122,12 @@ namespace tns
 
     void scr_fill_char_attr(uint8_t ch, uint8_t attr, uint16_t count)
     {
-        spi_tns_transfer(tns_commands::SCR_SET_ATTR, attr);
-        spi_tns_transfer(tns_commands::SCR_CHAR, ch);
+        CPLD.spi_tns_transfer(TNSCommand::SCR_SET_ATTR, attr);
+        CPLD.spi_tns_transfer(TNSCommand::SCR_CHAR, ch);
         while (--count)
         {
-            spi_tns_clr_ssel();
-            spi_tns_set_ssel();
+            CPLD.spi_tns_clr_ssel();
+            CPLD.spi_tns_set_ssel();
         }
     }
 
@@ -135,11 +135,11 @@ namespace tns
 
     void scr_fill_attr(uint8_t attr, uint16_t count)
     {
-        spi_tns_transfer(tns_commands::SCR_FILL, attr);
+        CPLD.spi_tns_transfer(TNSCommand::SCR_FILL, attr);
         while (--count)
         {
-            spi_tns_clr_ssel();
-            spi_tns_set_ssel();
+            CPLD.spi_tns_clr_ssel();
+            CPLD.spi_tns_set_ssel();
         }
     }
 
@@ -149,8 +149,8 @@ namespace tns
     {
         scr_set_cursor(0, 0);
         scr_fill_char_attr(0x20, 0x1f, 53);      // ' '
-        //scr_fill_char_attr(0xb0, 0x77, 53 * 23); // '∞'
-        scr_fill_char_attr(0x20, 0xf0, 53 * 23); // '∞'
+        //scr_fill_char_attr(0xb0, 0x77, 53 * 23); // 'ÔøΩ'
+        scr_fill_char_attr(0x20, 0xf0, 53 * 23); // 'ÔøΩ'
         scr_fill_char_attr(0x20, 0x1f, 53);      // ' '
         flags1 &= ~(ENABLE_DIRECTUART | ENABLE_UART);
         flags1 |= ENABLE_SCR;
@@ -165,24 +165,6 @@ namespace tns
         uint8_t ypos = 3;
         uint8_t xpos = 4;
         scr_set_cursor(xpos, ypos++);  
-        scr_print_msg((const uint8_t*)"                                               ‹€");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                                             ‹€±±");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                                           ‹€ﬂ±≤≤");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                                          €ﬂ±‹≤≤≤");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                                        €ﬂ±‹≤≤≤≤±");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                                      ‹€±±≤≤≤≤±±‹");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                                    ‹€±±≤≤≤≤≤±±€€");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                                  ‹€ﬂ±≤≤≤≤≤±±€€ﬂ ");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                                ‹€ﬂ±ﬁ≤≤≤≤±±€€€   ");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                         ‹‹€€€€ﬂﬂ±±±±≤≤±±€€€     ");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                      ‹≤ΩÃÃ≤≤≤≤≤‹±±±±±±≤€€ﬂ      ");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                     €±±≤≤≤≤≤≤±≤€€≤‹±±≤€€        ");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                     ›≤≤≤≤±≤≤±≤≤±≤€€€±≤€›        ");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                     ≤≤≤≤€€€ﬂﬂ€€›≤≤€€€≤€›        ");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                     €≤≤€€€     ﬂ›≤€€€€€€        ");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                     ±€€€ﬂ      €≤≤≤€€€€         ");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                       ﬂ`      €≤≤≤≤€€€          ");scr_set_cursor(xpos, ypos++);
-        scr_print_msg((const uint8_t*)"                              €€€€€€ﬂ            ");scr_set_cursor(xpos, ypos++);
     }
 
     //-----------------------------------------------------------------------------
@@ -213,25 +195,25 @@ namespace tns
 
         scr_set_cursor(x, y);
         scr_set_attr(wind_attr);
-        scr_putchar(0xda);          // '⁄'
-        scr_fill_char(0xc4, width); // 'ƒ'
-        scr_putchar(0xbf);          // 'ø'
+        scr_putchar(0xda);          // 'ÔøΩ'
+        scr_fill_char(0xc4, width); // 'ÔøΩ'
+        scr_putchar(0xbf);          // 'ÔøΩ'
         uint8_t i;
         for (i = 0; i < height; i++)
         {
             scr_set_cursor(x, y + i + 1);
             scr_set_attr(wind_attr);
-            scr_putchar(0xb3);          // '≥'
-            scr_fill_char(0x20, width); // 'ƒ'
-            scr_putchar(0xb3);          // '≥'
+            scr_putchar(0xb3);          // 'ÔøΩ'
+            scr_fill_char(0x20, width); // 'ÔøΩ'
+            scr_putchar(0xb3);          // 'ÔøΩ'
             if (wind_flag & 0x01)
                 scr_fill_attr(WIN_SHADOW_ATTR, 1);
         }
         scr_set_cursor(x, y + height + 1);
         scr_set_attr(wind_attr);
-        scr_putchar(0xc0);          // '¿'
-        scr_fill_char(0xc4, width); // 'ƒ'
-        scr_putchar(0xd9);          // 'Ÿ'
+        scr_putchar(0xc0);          // 'ÔøΩ'
+        scr_fill_char(0xc4, width); // 'ÔøΩ'
+        scr_putchar(0xd9);          // 'ÔøΩ'
         if (wind_flag & 0x01)
         {
             scr_fill_attr(WIN_SHADOW_ATTR, 1);
@@ -310,27 +292,27 @@ namespace tns
             BkTO = pmenudesc.bgtask_period;
             scr_set_cursor(x, y);
             scr_set_attr(WIN_ATTR);
-            scr_putchar(0xda);              // '⁄'
-            scr_fill_char(0xc4, width + 2); // 'ƒ'
-            scr_putchar(0xbf);              // 'ø'
+            scr_putchar(0xda);              // 'ÔøΩ'
+            scr_fill_char(0xc4, width + 2); // 'ÔøΩ'
+            scr_putchar(0xbf);              // 'ÔøΩ'
             uint8_t i;
             for (i = 0; i < items; i++)
             {
                 scr_set_cursor(x, y + i + 1);
                 scr_set_attr(WIN_ATTR);
-                scr_putchar(0xb3); // '≥'
+                scr_putchar(0xb3); // 'ÔøΩ'
                 scr_putchar(0x20); // ' '
                 strptr = pmenudesc.strings[(lang * items) + i].c_str();
                 scr_print_msg_n(strptr, width);
                 scr_putchar(0x20); // ' '
-                scr_putchar(0xb3); // '≥'
+                scr_putchar(0xb3); // 'ÔøΩ'
                 scr_fill_attr(WIN_SHADOW_ATTR, 1);
             }
             scr_set_cursor(x, y + items + 1);
             scr_set_attr(WIN_ATTR);
-            scr_putchar(0xc0);              // '¿'
-            scr_fill_char(0xc4, width + 2); // 'ƒ'
-            scr_putchar(0xd9);              // 'Ÿ'
+            scr_putchar(0xc0);              // 'ÔøΩ'
+            scr_fill_char(0xc4, width + 2); // 'ÔøΩ'
+            scr_putchar(0xd9);              // 'ÔøΩ'
             scr_fill_attr(WIN_SHADOW_ATTR, 1);
 
             scr_set_cursor(x + 1, y + items + 2);
